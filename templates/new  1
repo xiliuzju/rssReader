@@ -1,0 +1,11 @@
+{%extends "blog_templates.html"%}
+
+{% block content %}	
+<div class="alignright"><a href="/blog/signup" class="alignright">
+	edit</a></div>
+<div class="alignright"style="padding-left:3em"><a href="/blog/login" class="alignright">
+	history/</a></div>
+<div class="alignright"><a href="/blog/signup" class="alignright">
+	login</a></div>
+<div class="alignright"><a href="/blog/login" class="alignright">
+{% endblock %}

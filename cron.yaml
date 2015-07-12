@@ -1,0 +1,4 @@
+cron:
+- description: refresh all feed daily
+  url: /scheduledTasks/rss
+  schedule: every 24 hours

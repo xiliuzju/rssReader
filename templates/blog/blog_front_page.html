@@ -1,0 +1,28 @@
+{% extends "blog_templates.html" %}
+
+{% block content %}
+	<div class="alignleft"><a href="/blog/newpost" class="alignleft">
+		write New blog!</a></div>
+	<div class="alignright"><a href="/blog/signup" class="alignright">
+		signup</a></div>
+	<div class="alignright"><a href="/blog/login" class="alignright">
+		signin/</a></div>
+	<br>
+	<br>
+	{% for blog in blogs %}
+		<div class="art">
+			<div class="alignleft"> 
+			<a href='/blog/{{blog.key().id()}}' class="alignleft">
+				{{blog.subject}}</a></div>
+			<div class="alignright">{{blog.created.strftime('%m-%d-%y')}}</div>
+			<br>
+			<hr>
+			<pre class="body">{{blog.content}}</pre>
+			
+			<br>
+			<br>
+		</div>
+	{% endfor %}
+	<div class="alignleft"><a href="/blog">back to front page</a></div>
+	<div class="alignright">{{db_query_difference}}</div>
+{% endblock %}

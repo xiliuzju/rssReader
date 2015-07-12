@@ -1,0 +1,77 @@
+<!DOCTYPE=html>
+
+<style type="text/css">
+	h1{
+		color: inherit;
+		text-decoration: none;
+		text-align: center;
+		background-color: #b0b0b0;
+        font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+		width: 800px; margin: 0 auto; padding: 10px;
+    }
+	a{
+		color: inherit;
+		text-decoration: none;
+	}
+	.title {
+		font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+		width: 800px; margin: 0 auto; padding: 10px;
+    }
+	label{
+		font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+	}
+	.alignleft:hover {
+		color: #808080;
+	}
+	.alignright:hover {
+		color: #808080;
+	}
+	.alignleft {
+		color: inherit;
+		text-decoration: none;
+		font-weight: bold;
+		font-size: 18px;
+		font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		float: left;
+	}
+	.alignright {
+		color: inherit;
+		text-decoration: none;
+		font-weight: italic;
+		font-size: 14px;
+		font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		float: right;
+	}
+	body {
+		color: inherit;
+        font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+		width: 800px; margin: 0 auto; padding: 10px;
+    }
+    error {
+        color: red;
+    }
+    label {
+        font-family: sans-serif; display: block; font-size: 20px;
+    }
+    input[type=text] {
+        width: 400px; font-size: 20px; padding: 2px;
+    }
+    textarea {
+        width:400px; height: 400px; font-size: 17px; font-family:sans-serif;
+    }
+    input[type=submit] {
+        font-size: 10px;
+    }
+</style>
+
+<head>
+	<title> Udacity 253 Blog - Vincent Liu</title>
+</head>
+<body>
+	<h1><a href="/blog">Udacity 253 Blog - Vincent Liu</a></h1>
+	<br>
+	{% block content %}
+	
+	{% endblock %}
+			
+</body>

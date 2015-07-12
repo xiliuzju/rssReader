@@ -1,0 +1,61 @@
+{%extends "rss_templates.html"%}
+
+{% block content %}	
+
+<div id="feeds_nav">
+	<a><b>RSS feeds</b></a>
+	<br>
+	<hr>
+	<!-- user feed list -->
+	{% for feed in feedList %}
+		<!-- fav icon -->
+		<div style="max-width:100%;padding: 8px;"><img src="http://www.google.com/s2/favicons?domain_url={{feed}}">
+		{%if manage_feed_switch%}
+			{%if feed == selectedFeed%}
+				<a href='/rss?feed={{feed}}'><b>{{feedList[feed][0:15]}}..</b></a>
+			{%else%}
+				<a href='/rss?feed={{feed}}'>{{feedList[feed][0:15]}}..</a>
+			{%endif%}
+			<!-- display the recycle icon, depends on whether to manage user's feed -->
+			<a href='rss?delete={{feed}}'><img src="http://png.findicons.com/files/icons/2139/uidesign/16/delete.png"></a>
+		{%else%}
+			{%if feed == selectedFeed%}
+				<a href='/rss?feed={{feed}}'><b>{{feedList[feed]}}</b></a>
+			{%else%}
+				<a href='/rss?feed={{feed}}'>{{feedList[feed]}}</a>
+			{%endif%}
+		{%endif%}
+		</div>
+	{%endfor%}
+
+	<hr>
+	<!-- adding feed section -->
+	<form method="post">
+		<div style="padding-top:10px"><b>Add feed</b></div>
+        <input type="text" name="input_feed" style="width: 100%;" >
+		<div>{{error_message}}</div>
+		<input type="submit">
+	</form>
+</div>
+
+<div id="feeds_content">
+	<!-- content title and href -->
+	{% for c in content %}
+	<a href={{c[3]}} target="_blank" style="font-size:20px; color:303030; font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif; "><b>{{c[0]}}</b></a>
+	<br>
+	<a style="float:left; padding-top:7px"><font size="2" color=707070>{{c[2]}}</font></a>
+	<br>
+	<br>
+	<!-- content description -->
+	{{c[1].replace("<img", '<img id="media"') | safe}}
+	<div><br></div>
+	
+	<!-- content media, if it contains -->
+	{{c[4] | safe}}
+	<div><br></div>
+	<hr width="100%" style="margin: 0px; padding: 0px">
+	{%endfor%}
+	
+</div>
+
+{% endblock %}

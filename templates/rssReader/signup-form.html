@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://www.hunt-international.com/wp-content/uploads/2012/08/rss-icon-lg.png">
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+	
+	<!-- external sign in, google-->
+	<meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="272314817438-s673suoqf7grlk38jvttruhl919bcp84.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form class="form-signin" method="post">
+        <img style="width: 96px; height: 96px;margin: 20px 100px 10px;"src="http://www.hunt-international.com/wp-content/uploads/2012/08/rss-icon-lg.png">
+        <label for="inputEmail" class="sr-only">Username</label>
+        <input type="text" name="username" value="{{username}}" id="inputEmail" class="form-control" placeholder="Username" >
+        <label type="password" for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="password" value=""  id="inputPassword" class="form-control" placeholder="Password">
+		<label type="password" for="inputPassword" class="sr-only">Verify Password</label>
+        <input type="password" name="verify" value=""  id="inputPassword" class="form-control" placeholder="Verify Password">
+		<label for="inputEmail" class="sr-only">Email(optional)</label>
+        <input type="text" name="email" value="{{email}}" id="inputEmail" class="form-control" placeholder="Email (optional)">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+		<!-- error message-->
+		<div style="text-decoration: none;"class="error">
+            {{error_username}}
+         </div>
+		<div class="error">
+            {{error_password}}
+         </div>
+		 <div class="error">
+			{{error_verify}}
+         </div>
+		 <div class="error">
+            {{error_email}}
+         </div>
+		 
+		 <br>
+		 <a>External Sign In</a>
+		 <div style="float:right" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"
+		 data-width="30" data-height="30" data-longtitle="false"></div>
+      </form>
+		
+    </div> <!-- /container -->
+  </body>
+</html>

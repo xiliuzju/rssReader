@@ -1,0 +1,12 @@
+{%extends "wiki_templates.html"%}
+
+{% block content %}	
+
+<h2>{{item}}</h2>
+{{content|safe}}
+
+<br>
+{% if content and last_modified_username%}
+<div style="font-size:15px; font-style:italic;bottom: 0;width: 100%;">last modified by: {{last_modified_username}}</div>
+{% endif %}
+{% endblock %}

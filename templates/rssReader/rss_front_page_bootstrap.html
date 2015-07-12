@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Simple Rss Reader</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+	<link href="/stylesheets/dashboard.css" rel="stylesheet">
+	<link href="/stylesheets/custom.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="http://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+	
+  </head>
+   <body>
+	 <!-- top navigation bar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+		  <img style="height:24px; width:24px; margin-top:14px; margin-left:10px" class="pull-left" src="/static/images/logo-rss.png"></img>
+          <a style="margin-left:0;"class="navbar-brand" href="#" >Simple RSS Reader</a>
+		  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          	<ul class="nav navbar-nav navbar-right">
+			<!-- add a dropdown menu display only for mobile applications-->
+				<li class="hidden-lg dropdown">
+				<a href="#" style="text-align:center;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+				Feed List <span class="caret"></span></a>
+				<!-- feed list -->
+				<ul class="dropdown-menu centerDropdown" role="menu">
+					{% for feed in feedList %}
+						{%if feed == selectedFeed%}
+							<li><a href='/rss?feed={{feed}}'><b>{{feedList[feed]}}</b></a></li>
+						{%else%}
+							<li><a href='/rss?feed={{feed}}'>{{feedList[feed]}}</a></li>
+						{%endif%}
+					{%endfor%}
+				</ul>
+				</li>
+			<!-- add a dropdown menu for mobile applications-->
+			{%if user_logged_in_stat == true %}
+				<li style="text-align:center"><button style="margin-top:8px; color:#ffffff;" type="button" class="btn btn-warning btn-md">
+					<span class="glyphicon glyphicon-user"></span>{{username}}
+				</button></li>
+				<li style="text-align:center"><a href="/rss/logout" style="text-align:center;">Log out</a></li>
+			{%else%}
+				<li><a href="/rss/login" style="text-align:center;">Log in</a></li>
+				<li><a href="/rss/signup" style="text-align:center;">Sign up</a></li>	
+			{%endif%}
+          </ul>
+		  <form class="navbar-form navbar-right" method="post">
+			<li class="input-group">
+				<input class="form-control" type="text" name="input_feed" 
+				{%if error_message%}
+					 placeholder={{error_message}}
+				{%else%}
+					 placeholder="Add Feed"
+				{%endif%}>
+				<span class="input-group-btn"><button class="btn btn-success" type="submit">Add</button></span>
+			</li>
+          </form>
+			
+        </div>
+     </div>
+	 </nav>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-4 col-md-2 col-lg-2 sidebar">
+				<!-- manage my feed selection -->
+				<ul class="nav nav-sidebar">
+					<li class="active"><a href='/rss?manage=true'>Manage My Feed</a></li>
+				</ul>
+				<!-- feed list -->
+				<ul class="nav nav-sidebar">
+					{% for feed in feedList %}
+						{%if manage_feed_switch%}
+							{%if feed == selectedFeed%}
+								<li><a class="pull-left" href='rss?delete={{feed}}'><span class="glyphicon glyphicon-trash"></span></a>
+								<a href='/rss?feed={{feed}}'><b>{{feedList[feed]}}..</b></a>
+								</li>
+							{%else%}
+								<li><a class="pull-left" href='rss?delete={{feed}}'><span class="glyphicon glyphicon-trash"></span></a>
+								<a href='/rss?feed={{feed}}'>{{feedList[feed]}}..</a>
+								</li>
+							{%endif%}
+						{%else%}
+							{%if feed == selectedFeed%}
+								<li><a class="pull-left"><img src="http://www.google.com/s2/favicons?domain_url={{feed}}"></a>
+								<a href='/rss?feed={{feed}}'><b>{{feedList[feed]}}</b></a></li>
+							{%else%}
+								<li><a class="pull-left"><img src="http://www.google.com/s2/favicons?domain_url={{feed}}"></a>
+								<a href='/rss?feed={{feed}}'>{{feedList[feed]}}</a></li>
+							{%endif%}
+						{%endif%}
+					{%endfor%}
+				</ul>
+			</div>
+			<div class="col-sm-8 col-md-10 col-lg-10 main">
+				<h4 class="sub-header">{{feedList[feed]}}</h4>
+				<div class="feed-content">
+					{% for c in content %}
+						<!-- content title and href -->
+						<h3 class="sub-header"><a href={{c[3]}} target="_blank"><b>{{c[0]}}</b></a></h3>
+						<p><font size="1" color=707070>{{c[2]}}</font></p>
+						<br>
+						
+						<!-- content description -->
+						{{c[1].replace("<img", '<img class="img-responsive"') | safe}}
+						
+				
+						<!-- content media, if it contains -->
+						{{c[4].replace('id = "media"', '<img class="img-responsive"') | safe}}
+						
+						<hr>
+					{%endfor%}
+				</div>
+			</div>
+		</div>
+    </div>
+	
+	 <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="http://getbootstrap.com/assets/js/vendor/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+   </body>
+</html>

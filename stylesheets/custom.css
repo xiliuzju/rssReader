@@ -1,0 +1,21 @@
+.navbar-brand a {
+    color: #ff9933;
+}
+.navbar-brand a:hover{
+    color: #f8f8f8;
+}
+
+@media (min-width: 768px) {
+  .feed-content{
+	width:100%;
+	padding-left:37%;
+	padding-right:23%;
+	}
+}
+.sub-header a{
+	text-decoration:none;
+}
+.centerDropdown{
+	text-align: center;
+}
+

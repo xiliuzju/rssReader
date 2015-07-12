@@ -1,0 +1,9 @@
+{%extends "wiki_templates.html"%}
+
+{% block content %}	
+<br>
+{%for his in history%}
+<li>{{username}} edited <a href="/wiki/{{his.item}}">{{his.item}}</a> at {{his.edit_time}}</li>
+<br>
+{%endfor%}
+{% endblock %}

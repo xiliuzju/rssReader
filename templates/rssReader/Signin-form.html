@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://www.hunt-international.com/wp-content/uploads/2012/08/rss-icon-lg.png">
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+	
+	<!-- external sign in, google-->
+	<meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="272314817438-s673suoqf7grlk38jvttruhl919bcp84.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+	
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form class="form-signin" method="post">
+        <img style="width: 96px; height: 96px;" class="center-block" src="http://www.hunt-international.com/wp-content/uploads/2012/08/rss-icon-lg.png">
+        <label for="inputEmail" class="sr-only">Username</label>
+        <input type="text" name="username" value="{{username}}" id="inputEmail" class="form-control" placeholder="Username" >
+        <label type="password" for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="password" value=""  id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+		  <a style="float:right" href='/rss/signup'>Create an account</a>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+		<div style="text-decoration: none;"class="error">
+            {{error_username|safe}}
+         </div>
+		<div class="error">
+            {{error_password}}
+         </div>
+		 <br>
+		 <a>External Sign In</a>
+		 <div style="float:right" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"
+		 data-width="30" data-height="30" data-longtitle="false"></div>
+      </form>
+	
+    </div> <!-- /container -->
+	<!-- external sign in script, google-->
+	<script>
+	function onSuccess(googleUser) {
+				console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+			}
+	function onFailure(error) {
+			console.log(error);
+	}
+	function renderButton() {
+		gapi.signin2.render('my-signin2', {
+				'scope': 'https://www.googleapis.com/auth/plus.login',
+				'width': 50,
+				'height': 50,
+				'longtitle': false,
+				'theme': 'dark',
+				'onsuccess': onSuccess,
+				'onfailure': onFailure
+		});
+	}	
+	function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log("Name: " + profile.getName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST', '/rss/login?ext=google');
+		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		xhr.onload = function() {
+			console.log('Signed in as: ' + xhr.responseText);
+			};
+		xhr.send('idtoken=' + id_token);
+	};
+	
+	</script>	
+  </body>
+</html>

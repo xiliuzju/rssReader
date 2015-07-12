@@ -1,0 +1,19 @@
+{% extends "blog_templates.html" %}
+
+{% block content %}
+  <div class="art">
+			<div class="alignleft"> 
+			<a href='/blog/{{post.key().id()}}' class="alignleft">
+				{{post.subject}}</a></div>
+			<div class="alignright">{{post.created.strftime('%m-%d-%y')}}</div>
+			<br>
+			<hr>
+			<pre class="body">{{post.content}}</pre>
+			
+			<br>
+			<br>
+	</div>
+  
+  <div class="alignleft"><a href="/blog">back to front page</a></div>
+  <div class="alignright">{{db_query_difference}}</div>
+{% endblock %}

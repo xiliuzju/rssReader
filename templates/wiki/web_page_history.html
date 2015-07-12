@@ -1,0 +1,29 @@
+{%extends "wiki_templates.html"%}
+
+{% block content %}
+	
+<br>
+<table id="table1"  border="1" style="width:100%">
+	<tr style="background-color: #9BC29D;">
+		<th>username</th>
+		<th>content</th> 
+		<th>modified time</th>
+		<th></th>
+		<th></th>
+	</tr>
+
+	{%for his in history%}
+	<tr style="{{ loop.cycle('background-color: #DFDFDF;', 'background-color: #FFFFFF;')}}">
+		<th>{{his.username}}</th>
+		<th>{{his.content}}</th> 
+		<th>{{his.edit_time}}</th>
+		{% set version = history|length - loop.index %}
+		<th><a href="/wiki/{{item}}?v={{version}}">view</th>
+		<th>edit</th>
+	</tr>
+  {%endfor%}
+</table>
+<br>
+
+<p><a href="/wiki/{{item}}">go back to item page</a></p>
+{% endblock %}
